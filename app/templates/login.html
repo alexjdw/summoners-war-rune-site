@@ -1,0 +1,16 @@
+{% extends 'home.html' %}
+  {% block content %}
+    <form method="post" action="/login">
+      {{ form.csrf_token }}
+      <p>{{ form.username.label }} {{ form.username(size=20) }}</p>
+      {% for error in form.username.errors %}
+        <p>Error: {{ error }}</p>
+      {% endfor %}
+      <p>{{ form.password.label }} {{ form.password(size=20) }}</p>
+      {% for error in form.password.errors %}
+        <p>Error: {{ error }}</p>
+      {% endfor %}
+      <p>{{ form.remember.label }} {{ form.remember() }}
+      <p>{{ form.submit }}</p>
+    </form>
+  {% endblock content %}

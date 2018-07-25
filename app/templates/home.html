@@ -1,0 +1,9 @@
+{% extends 'index.html' %}
+
+  {% block content %}
+    {% if loggedin != True or page == 'login' %}
+      {% block login %} {% endblock %}
+    {% endif %}
+
+  <h1>Welcome to the Night Penguin rune suggstion tool!</h1>
+  {% endblock content %}

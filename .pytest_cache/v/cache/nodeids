@@ -1,0 +1,5 @@
+[
+  "test/test_opti.py::test_rune_box",
+  "test/test_opti.py::test_monster",
+  "test/test_opti.py::test_suggest"
+]

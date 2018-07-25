@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>RuneThing &mdash; {{ title }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='owl.carousel.min.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/ionicons/css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/fontawesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/flaticon/font/flaticon.css') }}">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+
+
+
+    <header role="banner">
+      <div class="top-bar">
+        <div class="container">
+          <div class="row">
+            <div class="col-9 social">
+              <a href="#"><span class="fa fa-twitter"></span></a>
+              <a href="#"><span class="fa fa-facebook"></span></a>
+              <a href="#"><span class="fa fa-instagram"></span></a>
+              <a href="#"><span class="fa fa-youtube-play"></span></a>
+              <a href="#"><span class="fa fa-vimeo"></span></a>
+              <a href="#"><span class="fa fa-snapchat"></span></a>
+            </div>
+            <div class="col-3 search-top">
+              <!-- <a href="#"><span class="fa fa-search"></span></a> -->
+              <form action="#" class="search-top-form">
+                <span class="icon fa fa-search"></span>
+                <input type="text" id="s" placeholder="Type keyword to search...">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container logo-wrap">
+        <div class="row pt-5">
+          <div class="col-12 text-center">
+            <a class="absolute-toggle d-block d-md-none" data-toggle="collapse" href="#navbarMenu" role="button" aria-expanded="false" aria-controls="navbarMenu"><span class="burger-lines"></span></a>
+            <h1 class="site-logo"><a href="index.html">Night Penguin's Rune Optimizer</a></h1>
+          </div>
+        </div>
+      </div>
+
+      <nav class="navbar navbar-expand-md  navbar-light bg-light">
+        <div class="container">
+
+
+          <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('upload') }}">Upload</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('optimize') }}">Runes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+              </li>
+              <li class="nav-item">
+                {% if current_user.is_authenticated == true %}
+                  <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+                {% else %}
+                  <a class="nav-link" href="{{ url_for('login') }}">Log In</a>
+                {% endif %}
+              </li>
+            </ul>
+            </br> {{ current_user.username }}
+
+          </div>
+        </div
+      </nav>
+    </header>
+    <!-- END header -->
+
+    <section class="site-section pt-5">
+      <!-- START main content -->
+      <div class="container">
+        <div class="row">
+          <div class="blog-content-body" id="blog-content-body">
+        {% block content %} {% endblock content %}
+          </div>
+        </div>
+      </div>
+      <!-- END main-content -->
+      <div class="row" height='1500px'>&nbsp;</div> <!-- spacer -->
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- END footer -->
+
+  </body>
+</html>

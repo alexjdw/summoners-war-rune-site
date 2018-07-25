@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+  {% block content %}
+    <form method='POST' action=''>
+      {{ form.csrf_token }}
+      <div>{{ form.monsterselector.label }} {{ form.monsterselector }}</div>
+      <div>{{ form.evaluatorselector.label }} {{ form.evaluatorselector }}</div>
+      <div>{{ form.priset }} {{ form.secset }}
+      <div>
+        {{ form.addbutton }} {{ form.removebutton }}
+        <p>{{ form.donebutton }}</p>
+      </div>
+
+      <div>
+        {% for items in form.mons.items() %}
+          <b>{{ items[0] }}</b> {{ items[1][1] }} {{ items[1][2] }} {{ items[1][3] }}</br>
+        {% endfor %}
+    </form>
+
+  {% endblock content %}

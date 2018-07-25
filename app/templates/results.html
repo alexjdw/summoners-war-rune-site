@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+  {% block content %}
+    {% for mon in builds %}
+      <p>{{ mon }}</p>
+      {% autoescape off %}
+        <div style="float:left;margin:3px;margin-color:black;font-size:11px">
+          {{ stats[mon] }}
+        </div><br/>
+          {% for rune in builds[mon] %}
+
+          <div style="float:left;margin:3px;margin-color:black;font-size:11px">
+            {{ rune }}
+          </div>
+          {% endfor %}
+      {% endautoescape %}
+    {% endfor %}
+  {% endblock content %}
