@@ -81,7 +81,7 @@ class Monster:
         result = ''
         counter = 0
         for stat in self.stats.items():
-            result = f'{result} {stat[0]}: {int(stat[1])}\t'
+            result = f'{result} {stat[0]}: {int(stat[1])}\t'-
             if counter > 3:
                 counter = 0
                 result = result + '\n'

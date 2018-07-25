@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 import pytest
 
 
@@ -12,7 +13,7 @@ def testbox():
 def monster(testbox):
     import opti.monsterbox
     details = {
-              'name' : 'Shannon'
+              'name': 'Shannon'
               }
     stats = {
             "HP Flat": 582,
