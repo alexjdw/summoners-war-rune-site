@@ -15,7 +15,6 @@ from opti.suggest import suggestion_to_json
 from opti.monsterbox import get_monster_names
 
 
-
 # Routes
 @app.route('/')
 def home():
@@ -25,6 +24,7 @@ def home():
                            current_user=current_user,
                            )
 
+
 def save_json(form_json):
     random_hex = secrets.token_hex(8)
     _, fext = os.path.splitext(form_json.filename)
@@ -33,14 +33,20 @@ def save_json(form_json):
     form_json.save(json_path)
     return filename
 
+
 @login_required
 @app.route('/json', methods=['GET', 'POST'])
 def upload():
     form = JsonForm()
     if form.validate_on_submit():
         json_filename = save_json(form.jsonfile.data)
+
         current_user.runefile = json_filename
-        current_user.monsternames = json.dumps(get_monster_names(os.path.join(app.root_path, 'static', 'runeboxes', current_user.runefile)))
+        path = os.path.join(app.root_path, 'static', 'runeboxes',
+                            current_user.runefile)
+        names = get_monster_names(path)
+        current_user.monsternames = json.dumps(names)
+
         db.session.commit()
         return redirect(url_for('home'))
 

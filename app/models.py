@@ -1,9 +1,23 @@
 from app import db, loginmanager
+from sqlalchemy import ForeignKey
 from flask_login import UserMixin
 
 @loginmanager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+class Guild(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    __player_ids__ = db.Column(db.String(10000))
+
+    def getPlayerNames():
+        pass
+
+    def getPlayerCount():
+        pass
+
+    def __repr__(self):
+        return f"Guild {self.guildname}"
 
 
 class User(db.Model, UserMixin):
@@ -15,6 +29,7 @@ class User(db.Model, UserMixin):
     monsternames = db.Column(db.String(15000), nullable=False, default='')
     lockedrunes = db.Column(db.String(20), default=None)
     password = db.Column(db.String(60), nullable=False)
+    guild = db.Column(db.String, ForeignKey("guild.id"))
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
