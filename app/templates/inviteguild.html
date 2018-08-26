@@ -1,8 +1,8 @@
 {% extends 'index.html' %}
   {% block content %}
-    <h3>{{ guild.guildname }}</h3>
+    <h3>{ guildname }</h3>
     <h5>Members</h5>
-    {% for mem in members %}
-      {{ mem }} </br>
+    {% for player in players %}
+      {{ player }}
     {% endfor %}
   {% endblock content %}

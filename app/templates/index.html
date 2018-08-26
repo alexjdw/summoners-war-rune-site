@@ -71,6 +71,25 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('register') }}">Register</a>
               </li>
+
+              {% if current_user.is_authenticated == false %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('guild') }}">Guilds</a>
+              </li>
+              {% endif %}
+
+              {% if current_user.guild == None %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('create_guild') }}">Create Guild</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('guild') }}">
+                  {{ current_user.guildname() }}
+                </a>
+              </li>
+              {% endif %}
+
               <li class="nav-item">
                 {% if current_user.is_authenticated == true %}
                   <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>

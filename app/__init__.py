@@ -13,7 +13,7 @@ app.config.update(
     WTF_CSRF_ENABLED=True,
     SECRET_KEY='you-will-never-guess',
     SQLALCHEMY_DATABASE_URI='sqlite:///site.db',
-)
+    )
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)

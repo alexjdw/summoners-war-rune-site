@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+  {% block content %}
+    <h3>Create New Guild</h3>
+    <form method="post" action="/guild">
+      {{ form.csrf_token }}
+      <p>{{ form.guildname.label }} {{ form.guildname(size=50) }}</p>
+      {% for error in form.guildname.errors %}
+        <p>Error: {{ error }}</p>
+      {% endfor %}
+      <p>{{ form.submit }}</p>
+    </form>
+  {% endblock content %}

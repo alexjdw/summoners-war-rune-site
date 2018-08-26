@@ -2,11 +2,12 @@ import secrets
 import os
 import json
 
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 
-from app.models import User
+from app.models import User, Guild
 from app.forms import JsonForm, RegForm, LoginForm, MonsterSelectorForm
+from app.forms import GuildRegForm, GuildInviteForm
 from app import app, bcrypt, db
 
 from opti.evaluations import MonsterEvaluator
@@ -56,6 +57,7 @@ def upload():
                            form=form,
                            current_user=current_user,
                            )
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -153,6 +155,7 @@ def optimize():
                            current_user=current_user,
                            )
 
+
 @app.route('/results')
 def display_runes(builds, box, stats):
     for mon in builds:
@@ -161,7 +164,54 @@ def display_runes(builds, box, stats):
             builds[mon][index] = rune.__str__()
             builds[mon][index] = builds[mon][index].replace('\n', '<br/>')
             builds[mon][index] = builds[mon][index].replace('\t', '&nbsp;&nbsp;&nbsp;&nbsp;')
-    return render_template('results.html', builds=builds, stats=stats)
+    return render_template('results.html',
+                            builds=builds,
+                            stats=stats,
+                            current_user=current_user
+                            )
+
+
+@app.route('/guild/create')
+def create_guild():
+    regform = GuildRegForm()
+    if regform.validate_on_submit():
+        guild = Guild(guildname=regform.guildname.data, __user_ids__='{ "ids": [] }')
+        guild.add_player(current_user.id)
+
+        db.session.add(guild)
+        db.session.commit()
+
+        current_user.guild = Guild.query.filter_by(
+                guildname=regform.guildname.data).first().id
+
+        db.session.add(current_user)
+        db.session.commit()
+
+        return redirect('guild')
+
+
+    return render_template('createguild.html',
+                           form=regform,
+                           current_user=current_user
+                           )
+
+
+@app.route('/guild', methods=['GET','POST'])
+def guild():
+    if not current_user.is_authenticated:
+        return redirect('login')
+
+    invform = GuildInviteForm()
+
+    current_guild = Guild.query.get(current_user.guild)
+
+    return render_template('guild.html',
+                           form=invform,
+                           guild=current_guild,
+                           members=current_guild.get_player_names(),
+                           current_user=current_user,
+                           )
+
 
 @app.route('/logout')
 def logout():
